@@ -3,24 +3,29 @@ pipeline {
 
     stages {
 
-        stage('Checkout Validation') {
+        stage('Checkout') {
             steps {
-                echo 'Repository cloned successfully'
+                git branch: 'main',
+                url: 'https://github.com/<username>/<repository>.git'
+            }
+        }
+
+        stage('Verify Files') {
+            steps {
                 sh 'ls -la'
             }
         }
 
-        stage('Build') {
+        stage('Publish HTML') {
             steps {
-                echo 'Build successful'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                sh '''
-                sudo cp index.html /var/www/html/index.html
-                '''
+                publishHTML([
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: '.',
+                    reportFiles: 'index.html',
+                    reportName: 'HTML Demo'
+                ])
             }
         }
     }
