@@ -1,17 +1,18 @@
 pipeline {
     agent any
 
-**  stages {
-        stage('Checkou**Validation') {
-            steps **                echo 'Repository **oned successfully'
-              **sh 'ls -la'
+    stages {
+        stage('Checkout Validation') {
+            steps {
+                echo 'Repository cloned successfully'
+                sh 'ls -la'
             }
-       **
+        }
 
         stage('Build') {
-      **    steps {
-                echo **uild successful'
+            steps {
+                echo 'Build successful'
             }
-  **    }
+        }
     }
 }
